@@ -95,4 +95,47 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             });
         }
     });
+    // === Chatbot Functionality ===
+const chatbotContainer = document.getElementById('chatbot-container');
+const chatbotToggle = document.getElementById('chatbot-toggle');
+const chatbotBox = document.getElementById('chatbot-box');
+const chatbotText = document.getElementById('chatbot-text');
+const chatbotSend = document.getElementById('chatbot-send');
+
+const botReplies = {
+  hi: "Hey there 👋! I'm Piyush's assistant. How can I help?",
+  hello: "Hello! How are you today?",
+  skills: "Piyush is skilled in Python, OpenCV, Data Science, and Web Development.",
+  projects: "You can scroll to the Projects section or type 'portfolio' for GitHub links!",
+  portfolio: "🔗 Visit: <a href='https://github.com/Piyus563' target='_blank'>Piyush's GitHub</a>",
+  contact: "📧 Email: pk8962444@gmail.com or connect on LinkedIn!",
+  default: "I'm not sure about that. Try 'skills', 'projects', or 'contact'."
+};
+
+chatbotToggle.addEventListener('click', () => {
+  if (chatbotContainer.style.display === 'flex') {
+    chatbotContainer.style.display = 'none';
+  } else {
+    chatbotContainer.style.display = 'flex';
+  }
+});
+
+function addMessage(sender, text) {
+  const msg = document.createElement('div');
+  msg.classList.add(sender);
+  msg.innerHTML = text;
+  chatbotBox.appendChild(msg);
+  chatbotBox.scrollTop = chatbotBox.scrollHeight;
+}
+
+chatbotSend.addEventListener('click', () => {
+  const userMsg = chatbotText.value.trim();
+  if (!userMsg) return;
+  addMessage('user', userMsg);
+  chatbotText.value = '';
+
+  const botResponse = botReplies[userMsg.toLowerCase()] || botReplies.default;
+  setTimeout(() => addMessage('bot', botResponse), 500);
+});
+
 });
