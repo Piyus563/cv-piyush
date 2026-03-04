@@ -909,86 +909,172 @@ nav .logo:hover {
 
 /* Projects */
 .projects {
-    background: var(--section-bg);
+    background: #0d1117;
+    position: relative;
+    overflow: hidden;
+}
+
+.projects::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background: repeating-linear-gradient(90deg, #30363d 0px, #30363d 10px, transparent 10px, transparent 20px);
+    top: 0;
+}
+
+.projects h2 {
+    font-family: 'Courier New', monospace;
+    color: #58a6ff;
+}
+
+.code-bracket {
+    color: #ff7b72;
+    font-weight: bold;
 }
 
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
     max-width: 1200px;
     margin: 0 auto;
 }
 
 .project-card {
-    background: var(--card-bg);
-    padding: 2rem;
-    border-radius: var(--border-radius-md);
-    box-shadow: 0 8px 25px var(--shadow);
-    border: 1px solid var(--border-color);
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 1.5rem;
     transition: all 0.3s ease;
-    text-align: center;
+    position: relative;
+    font-family: 'Courier New', monospace;
+}
+
+.project-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, #58a6ff, #1f6feb);
+    opacity: 0;
+    transition: opacity 0.3s;
 }
 
 .project-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 35px var(--shadow), 0 0 20px rgba(255,107,53,0.2);
-    border-color: var(--primary-color);
+    border-color: #58a6ff;
+    transform: translateX(5px);
+    box-shadow: 0 8px 24px rgba(88,166,255,0.15);
+}
+
+.project-card:hover::before {
+    opacity: 1;
+}
+
+.project-number {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #21262d;
+    font-family: 'Courier New', monospace;
+}
+
+.project-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
 }
 
 .project-icon {
-    font-size: 3rem;
-    color: var(--primary-color);
-    margin-bottom: 1.5rem;
-    display: block;
+    width: 45px;
+    height: 45px;
+    background: linear-gradient(135deg, #1f6feb, #58a6ff);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    color: white;
+    flex-shrink: 0;
+    transition: all 0.3s;
+}
+
+.project-card:hover .project-icon {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 4px 12px rgba(88,166,255,0.4);
 }
 
 .project-card h3 {
-    color: var(--primary-color);
-    margin-bottom: 1rem;
-    font-size: 1.4rem;
-    font-family: var(--heading-font);
+    color: #c9d1d9;
+    font-size: 1.2rem;
+    font-family: 'Courier New', monospace;
+    margin: 0;
+    font-weight: 600;
 }
 
 .project-card p {
-    color: var(--text-color);
-    opacity: 0.9;
-    margin-bottom: 1.5rem;
+    color: #8b949e;
     line-height: 1.6;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
 }
 
 .project-tech {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-    justify-content: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 .project-tech span {
-    background: rgba(255,107,53,0.1);
-    color: var(--primary-color);
-    padding: 0.3rem 0.8rem;
-    border-radius: 15px;
-    font-size: 0.8rem;
-    border: 1px solid rgba(255,107,53,0.3);
+    background: #21262d;
+    color: #58a6ff;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    border: 1px solid #30363d;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: all 0.3s;
+}
+
+.project-tech span:hover {
+    background: #1f6feb;
+    color: white;
+    border-color: #58a6ff;
+    transform: translateY(-2px);
+}
+
+.project-links {
+    display: flex;
+    gap: 0.5rem;
 }
 
 .project-link {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.8rem 1.5rem;
-    background: var(--primary-color);
-    color: white;
+    padding: 0.6rem 1.2rem;
+    background: #21262d;
+    color: #58a6ff;
     text-decoration: none;
-    border-radius: 25px;
+    border-radius: 6px;
+    font-size: 0.85rem;
     font-weight: 600;
-    transition: all 0.3s ease;
+    border: 1px solid #30363d;
+    transition: all 0.3s;
 }
 
 .project-link:hover {
-    background: var(--secondary-color);
+    background: #1f6feb;
+    color: white;
+    border-color: #58a6ff;
     transform: translateY(-2px);
 }
 
@@ -1000,34 +1086,50 @@ nav .logo:hover {
 .view-all-btn {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.7rem;
     padding: 1rem 2rem;
-    background: var(--gradient);
-    color: white;
+    background: #21262d;
+    color: #58a6ff;
     text-decoration: none;
-    border-radius: 30px;
-    font-weight: 700;
-    transition: all 0.3s ease;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    border-radius: 8px;
+    font-weight: 600;
+    font-family: 'Courier New', monospace;
+    border: 1px solid #30363d;
+    transition: all 0.3s;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.terminal-prompt {
+    color: #7ee787;
+    font-weight: bold;
 }
 
 .view-all-btn:hover {
+    background: #1f6feb;
+    color: white;
+    border-color: #58a6ff;
     transform: translateY(-3px);
-    box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+    box-shadow: 0 8px 20px rgba(88,166,255,0.3);
 }
 
 @media (max-width: 768px) {
     .projects-grid {
         grid-template-columns: 1fr;
-        gap: 1.5rem;
+        gap: 1.25rem;
     }
     
     .project-card {
-        padding: 1.5rem;
+        padding: 1.25rem;
+    }
+    
+    .project-number {
+        font-size: 1.5rem;
     }
     
     .project-icon {
-        font-size: 2.5rem;
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
     }
 }
 
@@ -1036,17 +1138,22 @@ nav .logo:hover {
         padding: 1rem;
     }
     
-    .project-card h3 {
-        font-size: 1.2rem;
+    .project-header {
+        gap: 0.75rem;
     }
     
-    .project-tech {
-        gap: 0.3rem;
+    .project-card h3 {
+        font-size: 1.1rem;
     }
     
     .project-tech span {
         font-size: 0.7rem;
-        padding: 0.2rem 0.6rem;
+        padding: 0.3rem 0.6rem;
+    }
+    
+    .view-all-btn {
+        padding: 0.9rem 1.5rem;
+        font-size: 0.9rem;
     }
 }
 
