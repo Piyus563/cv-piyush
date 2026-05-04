@@ -95,47 +95,69 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             });
         }
     });
-    // === Chatbot Functionality ===
+// Chatbot Functionality
 const chatbotContainer = document.getElementById('chatbot-container');
 const chatbotToggle = document.getElementById('chatbot-toggle');
+const chatbotClose = document.getElementById('chatbot-close');
 const chatbotBox = document.getElementById('chatbot-box');
 const chatbotText = document.getElementById('chatbot-text');
 const chatbotSend = document.getElementById('chatbot-send');
 
 const botReplies = {
-  hi: "Hey there 👋! I'm Piyush's assistant. How can I help?",
-  hello: "Hello! How are you today?",
-  skills: "Piyush is skilled in Python, OpenCV, Data Science, and Web Development.",
-  projects: "You can scroll to the Projects section or type 'portfolio' for GitHub links!",
-  portfolio: "🔗 Visit: <a href='https://github.com/Piyus563' target='_blank'>Piyush's GitHub</a>",
-  contact: "📧 Email: pk8962444@gmail.com or connect on LinkedIn!",
-  default: "I'm not sure about that. Try 'skills', 'projects', or 'contact'."
+    hi: "Hey there 👋! I'm Piyush's AI assistant. How can I help you today?",
+    hello: "Hello! Nice to meet you. Looking for anything specific?",
+    skills: "Piyush specializes in AI/ML (TensorFlow, PyTorch), Data Science (OpenCV, Pandas), and modern Web Development.",
+    projects: "Check out the Projects section below! Some highlights: 3D Cube, AI Chatbot, and Face Detection.",
+    contact: "You can reach Piyush at pk8962444@gmail.com or via LinkedIn.",
+    default: "Interesting! I'm still learning, but feel free to ask about 'skills', 'projects', or 'contact'."
 };
 
 chatbotToggle.addEventListener('click', () => {
-  if (chatbotContainer.style.display === 'flex') {
-    chatbotContainer.style.display = 'none';
-  } else {
     chatbotContainer.style.display = 'flex';
-  }
+    chatbotToggle.style.display = 'none';
+});
+
+chatbotClose.addEventListener('click', () => {
+    chatbotContainer.style.display = 'none';
+    chatbotToggle.style.display = 'block';
 });
 
 function addMessage(sender, text) {
-  const msg = document.createElement('div');
-  msg.classList.add(sender);
-  msg.innerHTML = text;
-  chatbotBox.appendChild(msg);
-  chatbotBox.scrollTop = chatbotBox.scrollHeight;
+    const msg = document.createElement('div');
+    msg.style.padding = '8px 12px';
+    msg.style.borderRadius = '12px';
+    msg.style.maxWidth = '80%';
+    msg.style.fontSize = '0.9rem';
+    
+    if (sender === 'user') {
+        msg.style.alignSelf = 'flex-end';
+        msg.style.background = 'var(--accent-primary)';
+        msg.style.color = '#000';
+    } else {
+        msg.style.alignSelf = 'flex-start';
+        msg.style.background = 'rgba(255,255,255,0.05)';
+        msg.style.color = '#fff';
+    }
+    
+    msg.innerHTML = text;
+    chatbotBox.appendChild(msg);
+    chatbotBox.scrollTop = chatbotBox.scrollHeight;
 }
 
-chatbotSend.addEventListener('click', () => {
-  const userMsg = chatbotText.value.trim();
-  if (!userMsg) return;
-  addMessage('user', userMsg);
-  chatbotText.value = '';
-
-  const botResponse = botReplies[userMsg.toLowerCase()] || botReplies.default;
-  setTimeout(() => addMessage('bot', botResponse), 500);
+chatbotSend.addEventListener('click', sendMessage);
+chatbotText.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') sendMessage();
 });
+
+function sendMessage() {
+    const userMsg = chatbotText.value.trim();
+    if (!userMsg) return;
+    
+    addMessage('user', userMsg);
+    chatbotText.value = '';
+    
+    const botResponse = botReplies[userMsg.toLowerCase()] || botReplies.default;
+    setTimeout(() => addMessage('bot', botResponse), 600);
+}
 
 });
